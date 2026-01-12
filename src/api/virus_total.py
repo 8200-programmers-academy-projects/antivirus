@@ -40,12 +40,15 @@ class FileAnalysis:
 class VirusTotalApi:
     def __init__(self, key_storage: VirusTotalApiStorage):
         self.key_storage = key_storage
+        self.api_key = ""
 
     def get_default_headers(self) -> dict:
-        headers = {
-            "accept": "application/json",
-            "x-apikey": self.key_storage.get_key(),
-        }
+        if self.api_key == "":
+            self.api_key = self.key_storage.get_key()
+            headers = {"accept": "application/json", "x-apikey": self.api_key}
+        else:
+            headers = {"accept": "application/json", "x-apikey": self.api_key}
+
         return headers
 
     def upload_file_for_check(self, file_path: str) -> str:

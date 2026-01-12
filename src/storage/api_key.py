@@ -55,7 +55,7 @@ class VirusTotalApiStorage:
 
         data = {
             "pin_sha256_double_hash": hashlib.sha256(pin_hash).hexdigest(),
-            "encrypted_key": encrypted_key,
+            "encrypted_key": encrypted_key.hex(),
         }
 
         json_data = json.dumps(data)

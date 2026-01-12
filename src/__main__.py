@@ -30,6 +30,6 @@ if __name__ == "__main__":
         usecase.set_api_key()
     elif args[0] == "history":
         usecase.args = args[1:]
-        usecase.history()
+        usecase.get_history()
     else:
         usecase.check_file()

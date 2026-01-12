@@ -1,5 +1,5 @@
-from .storage import History, Result, VirusTotalApiStorage
-from .api import VirusTotalApi, ErrorNotAuthorized
+from .storage import api_key, history
+from .api.virus_total import VirusTotalApi, ErrorNotAuthorized
 import os
 import hashlib
 
@@ -17,8 +17,8 @@ class Usecase:
         self,
         args: list[str],
         api: VirusTotalApi,
-        history: History,
-        key_storage: VirusTotalApiStorage,
+        history: history.History,
+        key_storage: api_key.VirusTotalApiStorage,
     ):
         self.args = args
         self.api = api
@@ -26,15 +26,14 @@ class Usecase:
         self.api_key_storage = key_storage
 
     def get_history(self):
-        history = History()
-        results = history.get_results()
+        results = self.history.get_results()
         if len(results) == 0:
             print("History is clear")
             exit()
 
         print("History (m-maliciois,  s-suspicious, ud-undetected, us-unsupported):")
 
-        for i in history.get_results():
+        for i in self.history.get_results():
             print(
                 f"{i.filename} m:{i.malicious} s:{i.suspicious} ud:{i.undetected} us:{i.unsupported}"
             )
@@ -86,7 +85,7 @@ class Usecase:
                     if analysis.is_completed:
                         print("results:")
                         analysis.print()
-                        res = Result(
+                        res = history.Result(
                             filename=os.path.basename(self.args[0]),
                             malicious=analysis.malicious,
                             suspicious=analysis.suspicious,

@@ -1,1 +1,1 @@
-[{"malicious": 0, "filename": "api.py", "suspicious": 0, "undetected": 61, "unsupported": 13}]
+[{"malicious": 0, "filename": "api.py", "suspicious": 0, "undetected": 61, "unsupported": 13}, {"malicious": 0, "filename": "go.mod", "suspicious": 0, "undetected": 61, "unsupported": 14}]
